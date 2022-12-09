@@ -1,6 +1,44 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
+import InputFeild from "./components/InputFeild";
+import TodoList from "./components/TodoList";
+import { Todo } from "./models/models";
+
+
+
+
+
+const App: React.FC = () => {
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (todo) {
+      //for update
+      setTodos([...todos, { id: Date.now(), todo, isDone: false }]);
+      //for empty
+      setTodo("");
+    }
+  };
+
+  return (
+    <div className="App">
+      <span className="heading">Taskify</span>
+      <InputFeild todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+      <TodoList todos={todos} setTodos={setTodos} />
+    </div>
+  );
+};
+
+export default App;
+
+
+
+
+
+
 // import Welcome from "./Welcome";
 // import UserForm from "./UserForm";
 // import { Hooks } from "./Hooks";
@@ -21,21 +59,3 @@ import "./App.css";
 // function Sum1(props: Iprop) {
 //   return <>{props.a + props.b}</>;
 // }
-
-function App() {
-  // const value = sum(5, 7);
-  return (
-    <div className="App">
-      {/* <h5>sum{value}</h5> */}
-     {/* <div>
-     com<Sum1 a={2} b={3}/>
-      </div> */}
-      {/* < Welcome name={"hello"}/> */}
-      {/* <UserForm /> */}
-      {/* <Hooks initialValue={0}/> */}
-      {/* <Render/> */}
-    </div>
-  );
-}
-
-export default App;
